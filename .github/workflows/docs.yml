@@ -1,0 +1,23 @@
+name: Documentation Build Action
+
+# Controls when the action will run.
+#   Triggers the workflow on all pushes & pull requests, except on tag creation.
+#   Additionally, allow workflow to be dispatched on demand.
+on:
+  push:
+    branches:
+    - '**'
+    tags-ignore:
+    - '**'
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ammaraskar/sphinx-action@master
+      with:
+        docs-folder: "docs/"
+        build-command: "sphinx-build -b html source build -W --keep-going"
